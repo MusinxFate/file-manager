@@ -18,24 +18,75 @@
 		<script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
 		<div class="files"></div>
 
-		<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">Heeere</div>
-		<script>
-			function allowDrop(ev) {
-			ev.preventDefault();
-			console.log("ae")
-			}
+		<form id="upload" action="/upload" method="POST" enctype="multipart/form-data">
 
-			function drag(ev) {
-				console.log("ao")
-			ev.dataTransfer.setData("text", ev.target.id);
-			}
-
-			function drop(ev) {
-				console.log("ai")
-			ev.preventDefault();
-			var data = ev.dataTransfer.getData("text");
-			console.log(ev.dataTransfer)
-			}
-		</script>
+			<fieldset>
+			<legend>HTML File Upload</legend>
+			
+			<div>
+				<label for="fileselect">Files to upload:</label>
+				<input type="file" id="fileselect" name="fileselect" multiple="multiple" />
+				<div id="filedrag">or drop files here</div>
+			</div>
+			
+			<div id="submitbutton">
+				<input type="submit"/>
+			</div>
+			
+			</fieldset>
+			
+			</form>
+			<script>
+				let target = document.documentElement;
+		let body = document.body;
+		let fileInput = document.querySelector('input');
+		
+		target.addEventListener('dragover', (e) => {
+		  e.preventDefault();
+		  body.classList.add('dragging');
+		});
+		
+		target.addEventListener('dragleave', () => {
+		  body.classList.remove('dragging');
+		});
+		
+		target.addEventListener('drop', (e) => {
+		  e.preventDefault();
+		  body.classList.remove('dragging');
+		  
+		  fileInput.files = e.dataTransfer.files;
+		  document.getElementById('upload').submit()
+		});
+			</script>
+			<style>
+				body {
+		  font-family: Roboto, sans-serif;
+		}
+		
+		body.dragging::before {
+		  content: "Drop the file(s) anywhere on this page";
+		  position: fixed;
+		  left: 0; width: 100%;
+		  top: 0; height: 100%;
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  font-size: 1.5em;
+		  background-color: rgba(255, 255, 0, .3);
+		  pointer-events: none;
+		}
+		
+		button, input {
+		  font-family: inherit;
+		}
+		
+		a {
+		  color: blue;
+		}
+		#upload
+		{
+			display: none;
+		}
+			</style>		
 	</body>
 </html>

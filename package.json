@@ -26,7 +26,8 @@
   "dependencies": {
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "formidable": "^1.2.2",
     "socket.io": "^2.3.0",
-    "up.io": "^1.0.17"
+    "up.io": "^1.1.0"
   }
 }

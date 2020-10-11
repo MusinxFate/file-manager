@@ -8,7 +8,7 @@ $(function() {
         return this[this.length - 1];
     };
 
-	const donwload = (path, file) => {
+	const download = (path, file) => {
 		const body = JSON.stringify({path})
 		const headers = {'Content-Type': 'application/json'}
 		const method = 'POST'
@@ -27,7 +27,7 @@ $(function() {
 		if(x.target.localName == "a"){
 			const file = x.target.getAttribute('href')
 			if(x.target.className == "dir") socket.emit('path', file)
-			else donwload(file, file.split('\\').last())
+			else download(file, file.split('\\').last())
 		}
 	});
 
